@@ -40,7 +40,7 @@ const AppBarContent = (props: Props) => {
         userAppBarBranding(props)
       ) : (
         <LinkStyled href='/'>
-          <img class="logo" src="/logo.png" alt="" />
+          <img className="logo" src="/logo.png" alt="" />
 
           <Typography
             variant='h6'
