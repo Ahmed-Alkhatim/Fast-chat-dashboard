@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 export default function AddUser() {
     const [isOpen, setIsOpen] = useState(false)
+
     return (
         <>
             <Button sx={{ marginBottom: '10px' }} onClick={() => setIsOpen(true)} color='primary' variant="contained">Add User</Button>
@@ -30,7 +31,6 @@ const AddUserForm = ({ onClose, handleOnSave }) => {
             onClose()
         })
     }, [])
-
 
     return (
         <Box
