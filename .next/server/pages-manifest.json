@@ -7,13 +7,13 @@
   "/acl": "pages/acl.html",
   "/forgot-password": "pages/forgot-password.html",
   "/home": "pages/home.html",
-  "/": "pages/index.html",
   "/login": "pages/login.html",
-  "/register": "pages/register.html",
   "/second-page": "pages/second-page.html",
   "/users/AddUser": "pages/users/AddUser.html",
   "/users/UpdateUser": "pages/users/UpdateUser.html",
   "/users/UsersView": "pages/users/UsersView.html",
   "/users": "pages/users.html",
-  "/_error": "pages/_error.js"
+  "/register": "pages/register.html",
+  "/_error": "pages/_error.js",
+  "/": "pages/index.html"
 }
