@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export default ({ title, isOpen, onClose, render }) => {
-    const [onSave, setOnSave] = React.useState({ callback: () => { } })
+    const [onSave, setOnSave] = React.useState({ callback: () => { console.log('initial onSave'); } })
 
     const handleSave = () => {
         onSave.callback()

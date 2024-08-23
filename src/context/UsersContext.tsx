@@ -1,4 +1,4 @@
-import { createContext, ReactElement, ReactNode, useContext, useState } from "react"
+import { createContext, ReactNode, useContext, useState } from "react"
 import { UserContextType } from "./types"
 import { User } from "src/services/types"
 import UsersService from "src/services/userService"
@@ -22,7 +22,7 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
 
     const deleteUser = async (userId: string): Promise<void> => {
         console.log('The user with id ' + userId + 'will be deleted')
-        
+
     }
 
     return (

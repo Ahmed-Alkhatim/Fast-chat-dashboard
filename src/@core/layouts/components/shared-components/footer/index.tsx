@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import { LayoutProps } from 'src/@core/layouts/types'
 
 // ** Footer Content Component
-import FooterContent from './FooterContent'
+// import FooterContent from './FooterContent'
 
 interface Props {
   settings: LayoutProps['settings']
@@ -40,11 +40,11 @@ const Footer = (props: Props) => {
           ...(layout === 'vertical'
             ? { px: [4, 6] }
             : {
-                backgroundColor: theme => theme.palette.background.paper,
-                ...(skin === 'bordered'
-                  ? { borderTop: theme => `1px solid ${theme.palette.divider}` }
-                  : { boxShadow: 16 })
-              })
+              backgroundColor: theme => theme.palette.background.paper,
+              ...(skin === 'bordered'
+                ? { borderTop: theme => `1px solid ${theme.palette.divider}` }
+                : { boxShadow: 16 })
+            })
         }),
         ...footerStyles
       }}
@@ -64,8 +64,8 @@ const Footer = (props: Props) => {
           ...(footer === 'fixed' && {
             ...(contentWidth === 'boxed' &&
               layout === 'vertical' && {
-                '@media (min-width:1440px)': { maxWidth: theme => `calc(1440px - ${theme.spacing(6)} * 2)` }
-              }),
+              '@media (min-width:1440px)': { maxWidth: theme => `calc(1440px - ${theme.spacing(6)} * 2)` }
+            }),
             ...(layout === 'vertical' && {
               ...(skin === 'bordered'
                 ? { border: theme => `1px solid ${theme.palette.divider}`, borderBottomWidth: 0 }
@@ -74,7 +74,7 @@ const Footer = (props: Props) => {
           })
         }}
       >
-        {userFooterContent ? userFooterContent(props) : <FooterContent />}
+        {/* {userFooterContent ? userFooterContent(props) : <FooterContent />} */}
       </Box>
     </Box>
   )

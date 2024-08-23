@@ -32,6 +32,9 @@ const AddUserForm = ({ onClose, handleOnSave }) => {
         })
     }, [])
 
+    const handleChange = () => {
+        setUserData({})
+    }
     return (
         <Box
             component="form"
@@ -41,7 +44,7 @@ const AddUserForm = ({ onClose, handleOnSave }) => {
             noValidate
             autoComplete="off"
         >
-            <TextField id="outlined-basic" label="name" variant="outlined" value={userData.name} size="small" />
+            <TextField onClick={handleChange} id="outlined-basic" label="name" variant="outlined" value={userData.name} size="small" />
             <TextField id="outlined-basic" label="email" variant="outlined" value={userData.email} size="small" />
             <TextField id="outlined-basic" label="password" variant="outlined" value={userData.courses} size="small" />
         </Box>
