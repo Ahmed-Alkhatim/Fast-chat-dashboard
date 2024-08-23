@@ -1,0 +1,122 @@
+{
+    "users": {
+        "userId1": {
+            "name": "John Doe",
+            "email": "john@example.com",
+            "role": "instructor",
+            "profile_picture": "https://example.com/profile/john.jpg",
+            "bio": "Experienced Flutter Developer",
+            "courses": [
+                "courseId1",
+                "courseId3"
+            ],
+            "created_at": "2024-08-01T10:00:00Z",
+            "updated_at": "2024-08-15T12:00:00Z"
+        },
+        "userId2": {
+            "name": "Jane Doe",
+            "email": "jane@example.com",
+            "role": "student",
+            "profile_picture": "https://example.com/profile/jane.jpg",
+            "bio": "",
+            "courses": [
+                "courseId1",
+                "courseId2"
+            ],
+            "created_at": "2024-08-02T11:00:00Z",
+            "updated_at": "2024-08-16T13:00:00Z"
+        }
+    },
+    "courses": {
+        "courseId1": {
+            "title": "Flutter Development",
+            "description": "Learn Flutter from scratch",
+            "instructor_id": "userId1",
+            "category": "Mobile Development",
+            "price": 100,
+            "lessons": [
+                "lessonId1",
+                "lessonId2"
+            ],
+            "students_enrolled": [
+                "userId2"
+            ],
+            "created_at": "2024-08-01T10:00:00Z",
+            "updated_at": "2024-08-15T12:00:00Z"
+        },
+        "courseId2": {
+            "title": "Data Science",
+            "description": "Introduction to Data Science",
+            "instructor_id": "userId2",
+            "category": "Data Science",
+            "price": 150,
+            "lessons": [
+                "lessonId3",
+                "lessonId4"
+            ],
+            "students_enrolled": [
+                "userId1"
+            ],
+            "created_at": "2024-08-03T14:00:00Z",
+            "updated_at": "2024-08-16T16:00:00Z"
+        }
+    },
+    "courses/courseId1/lessons": {
+        "lessonId1": {
+            "title": "Introduction to Flutter",
+            "content": "https://example.com/content/flutter_intro.mp4",
+            "duration": 10,
+            "order": 1,
+            "created_at": "2024-08-01T11:00:00Z",
+            "updated_at": "2024-08-15T13:00:00Z"
+        },
+        "lessonId2": {
+            "title": "Flutter Widgets",
+            "content": "https://example.com/content/flutter_widgets.mp4",
+            "duration": 15,
+            "order": 2,
+            "created_at": "2024-08-01T12:00:00Z",
+            "updated_at": "2024-08-15T14:00:00Z"
+        }
+    },
+    "courses/courseId2/lessons": {
+        "lessonId3": {
+            "title": "Introduction to Data Science",
+            "content": "https://example.com/content/ds_intro.mp4",
+            "duration": 20,
+            "order": 1,
+            "created_at": "2024-08-03T15:00:00Z",
+            "updated_at": "2024-08-16T17:00:00Z"
+        },
+        "lessonId4": {
+            "title": "Python for Data Science",
+            "content": "https://example.com/content/python_ds.mp4",
+            "duration": 30,
+            "order": 2,
+            "created_at": "2024-08-03T16:00:00Z",
+            "updated_at": "2024-08-16T18:00:00Z"
+        }
+    },
+    "subscriptions": {
+        "subscriptionId1": {
+            "user_id": "userId2",
+            "course_id": "courseId1",
+            "status": "active",
+            "start_date": "2024-08-01T10:00:00Z",
+            "end_date": "2024-09-01T10:00:00Z",
+            "payment_id": "paymentId1",
+            "created_at": "2024-08-01T10:00:00Z",
+            "updated_at": "2024-08-01T10:00:00Z"
+        },
+        "subscriptionId2": {
+            "user_id": "userId1",
+            "course_id": "courseId2",
+            "status": "expired",
+            "start_date": "2024-08-03T14:00:00Z",
+            "end_date": "2024-09-03T14:00:00Z",
+            "payment_id": "paymentId2",
+            "created_at": "2024-08-03T14:00:00Z",
+            "updated_at": "2024-08-03T14:00:00Z"
+        }
+    }
+}
