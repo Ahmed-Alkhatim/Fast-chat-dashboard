@@ -5,13 +5,6 @@
     "prettier"
   ],
   "rules": {
-    "newline-before-return": "off",
-    "@typescript-eslint/no-unused-vars": "off",
-    "lines-around-comment": "off",
-    "@typescript-eslint/no-unused-vars": "off", // Consider disabling only for specific files if needed
-    "lines-around-comment": "off",
-    "newline-before-return": "off",
-    "react-hooks/exhaustive-deps": "off",
     "react/display-name": "off", //revice
     "@next/next/no-img-element": "off",
     "react/no-unescaped-entities": "off",
@@ -49,7 +42,11 @@
           "{}": false
         }
       }
-    ]
+    ],
+    "lines-around-comment": "off",
+    "@typescript-eslint/no-unused-vars": "off", // Consider disabling only for specific files if needed
+    "newline-before-return": "off",
+    "react-hooks/exhaustive-deps": "off",
   },
   "plugins": [
     "import"
