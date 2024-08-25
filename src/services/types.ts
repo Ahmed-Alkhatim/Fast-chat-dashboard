@@ -13,6 +13,7 @@ export interface User {
 
 export interface UserServiceType {
     fetchUsers(): Promise<User[] | undefined>;
+    fetchInstructors(): Promise<User[] | undefined>
     deleteUser(userId: string): Promise<void>;
 }
 
@@ -53,7 +54,7 @@ export interface Course {
     id: string;
     title: string;
     category: string;
-    price: number;
+    price: string;
     instructor_id: string; // Reference to the instructor (User ID)
     lessons: string[]; // Array of lesson IDs
     description: string;

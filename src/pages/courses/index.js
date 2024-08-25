@@ -1,8 +1,9 @@
-import CourseView from "./CourseView";
+import CourseView from "./components/CourseView"
 import { CoursesProvider } from "src/context/CoursesContext";
-import UpdateCourse from "./UpdateCourse";
+import UpdateCourse from "./components/UpdateCourse";
 import { useState } from "react";
-import AddCourse from "./AddCourse";
+import AddCourse from "./components/AddCourse";
+import { UsersProvider } from "src/context/UsersContext";
 
 export default function Courses() {
     const [courseData, setCourseData] = useState({});
@@ -15,9 +16,11 @@ export default function Courses() {
 
     return (
         <CoursesProvider>
-            <AddCourse />
-            <UpdateCourse courseData={courseData} isOpen={isUpdateOpen} onClose={() => setIsUpdateOpen(false)} />
-            <CourseView onUpdateCourse={(courseData) => handleUpdate(courseData)} />
+            <UsersProvider>
+                <AddCourse />
+                <UpdateCourse courseData={courseData} isOpen={isUpdateOpen} onClose={() => setIsUpdateOpen(false)} />
+                <CourseView onUpdateCourse={(courseData) => handleUpdate(courseData)} />
+            </UsersProvider>
         </CoursesProvider>
     );
 }

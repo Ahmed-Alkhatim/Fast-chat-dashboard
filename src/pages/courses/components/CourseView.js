@@ -11,12 +11,15 @@ import { styled } from '@mui/material';
 import toast from 'react-hot-toast';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useUsersContext } from 'src/context/UsersContext';
 
 export default function CourseView({ onUpdateCourse }) {
 
     const { courses, fetchCourses, deleteCourse } = useCoursesContext();
+    const { fetchUsers } = useUsersContext()
     useEffect(() => {
         fetchCourses();
+        fetchUsers()
     }, []);
 
     const handleDelete = (courseId) => {
@@ -30,10 +33,11 @@ export default function CourseView({ onUpdateCourse }) {
                 <TableHead>
                     <TableRow>
                         <TableCell>Title</TableCell>
+                        <TableCell>Description</TableCell>
                         <TableCell>Category</TableCell>
                         <TableCell>Price</TableCell>
                         <TableCell>Instructor</TableCell>
-                        {/* <TableCell>Lessons</TableCell> */}
+                        <TableCell>Lessons</TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
@@ -41,10 +45,11 @@ export default function CourseView({ onUpdateCourse }) {
                     {courses?.map((course) => (
                         <TableRow key={course.title}>
                             <TableCell component="th" scope="row">{course.title}</TableCell>
+                            <TableCell component="th" scope="row">{course.description}</TableCell>
                             <TableCell>{course.category}</TableCell>
                             <TableCell>{course.price}</TableCell>
                             <TableCell>{course.instructor_id}</TableCell>
-                            {/* <TableCell>{course.lessons.join(', ')}</TableCell> */}
+                            <TableCell>{course.lessons.length}</TableCell>
                             <TableCell>
                                 <ButtonsContainer>
                                     <EditIcon sx={{ fontSize: 20, cursor: 'pointer' }} onClick={() => onUpdateCourse(course)} />

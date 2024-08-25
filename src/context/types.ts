@@ -73,6 +73,7 @@ export interface Lesson {
 }
 export interface UserContextType {
   users: User[] | undefined,
+  instructors: User[] | undefined,
   fetchUsers(): Promise<void>;
   deleteUser(userId: string): Promise<void>;
 }
