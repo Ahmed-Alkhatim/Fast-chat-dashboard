@@ -1,8 +1,8 @@
-import UsersView from "./UsersView"
+import UsersView from "./components/UsersView"
 import { UsersProvider } from "src/context/UsersContext"
-import UpdateUser from "./UpdateUser"
+import UpdateUser from "./components/UpdateUser"
 import { useState } from "react"
-import AddUser from "./AddUser"
+import AddUser from "./components/AddUser"
 
 export default function Users() {
     const [userData, setUserData] = useState({})

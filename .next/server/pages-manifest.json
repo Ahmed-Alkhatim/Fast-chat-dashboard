@@ -2,18 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/401": "pages/401.html",
-  "/404": "pages/404.html",
-  "/500": "pages/500.html",
-  "/acl": "pages/acl.html",
-  "/forgot-password": "pages/forgot-password.html",
-  "/home": "pages/home.html",
-  "/": "pages/index.html",
-  "/login": "pages/login.html",
-  "/register": "pages/register.html",
-  "/second-page": "pages/second-page.html",
-  "/users/AddUser": "pages/users/AddUser.html",
-  "/users/UpdateUser": "pages/users/UpdateUser.html",
-  "/users/UsersView": "pages/users/UsersView.html",
-  "/users": "pages/users.html"
+  "/users": "pages/users.js"
 }

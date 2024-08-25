@@ -11,15 +11,23 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'User Management',
       path: '/users',
-      icon: 'tabler:users',
+      icon: 'tabler:school',
     },
     {
-      path: '/acl',
-      action: 'read',
-      subject: 'acl-page',
-      title: 'Access Control',
-      icon: 'tabler:shield',
-    }
+      title: 'Subscriptions',
+      path: '/subscriptions',
+      icon: 'tabler:wallet',
+    },
+    {
+      title: 'Lessons',
+      path: '/lessons',
+      icon: 'tabler:book',
+    },
+    {
+      title: 'Courses',
+      path: '/courses',
+      icon: 'tabler:video',
+    },
   ]
 }
 
