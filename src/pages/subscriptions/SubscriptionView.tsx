@@ -74,11 +74,11 @@ export default function SubscriptionView({ onUpdateSubscription }) {
                                 >
                                     <DeleteOutline color='error' />
                                 </IconButton>
-                                <IconButton
+                                {/* <IconButton
                                     aria-label="view"
                                 >
                                     <PreviewIcon color='primary' />
-                                </IconButton>
+                                </IconButton> */}
                             </TableCell>
                         </TableRow>
                     ))}

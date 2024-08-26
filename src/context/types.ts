@@ -1,5 +1,7 @@
 import { User } from 'src/services/types';
 import { Course } from 'src/services/types';
+
+
 export type ErrCallbackType = (err: { [key: string]: string }) => void;
 
 export type LoginParams = {

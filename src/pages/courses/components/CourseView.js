@@ -53,8 +53,8 @@ export default function CourseView({ onUpdateCourse }) {
                             <TableCell>{course.lessons.length}</TableCell>
                             <TableCell>{course.students_enrolled.length}</TableCell>
                             <TableCell>
-                                <ButtonsContainer>
-                                    <EditIcon sx={{ fontSize: 20, cursor: 'pointer' }} onClick={() => onUpdateCourse(course)} />
+                                <ButtonsContainer >
+                                    <EditIcon sx={{ fontSize: 20, cursor: 'pointer', marginInlineEnd: '12px' }} onClick={() => onUpdateCourse(course)} />
                                     <DeleteIcon sx={{ fontSize: 20, cursor: 'pointer' }} onClick={() => handleDelete(course.id)} />
                                 </ButtonsContainer>
                             </TableCell>
