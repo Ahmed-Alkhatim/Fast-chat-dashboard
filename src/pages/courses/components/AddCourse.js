@@ -41,8 +41,10 @@ const AddCourseForm = ({ onClose, handleOnSave }) => {
         handleOnSave(() => {
             toast.success('Course added successfully');
             onClose();
+            console.log({ ...courseData, category, instructor });
+
         });
-    }, []);
+    }, [courseData, category, instructor]);
 
     const handleChange = (e) => {
         setCourseData({
@@ -62,7 +64,7 @@ const AddCourseForm = ({ onClose, handleOnSave }) => {
         >
             <TextField name="title" onChange={handleChange} id="outlined-basic" label="Title" variant="outlined" value={courseData.title || ''} size="small" />
             <TextField name="description" onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={courseData.description || ''} size="small" />
-            <TextField name="price" onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={courseData.Price || ''} size="small" />
+            <TextField name="price" onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={courseData.price || ''} size="small" />
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <InputLabel id="demo-select-small-label">Category</InputLabel>
                 <Select
@@ -72,7 +74,7 @@ const AddCourseForm = ({ onClose, handleOnSave }) => {
                     label="Category"
                     onChange={(e => setCategory(e.target.value))}
                 >
-                    {categories.map(category => <MenuItem value={category.id}>{category.name}</MenuItem>)}
+                    {categories.map(category => <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>)}
 
                 </Select>
             </FormControl>
@@ -85,7 +87,7 @@ const AddCourseForm = ({ onClose, handleOnSave }) => {
                     label="Instructor"
                     onChange={(e => setInstructor(e.target.value))}
                 >
-                    {instructors?.map(instructor => <MenuItem value={instructor.id}>{instructor.name}</MenuItem>)}
+                    {instructors?.map(instructor => <MenuItem key={instructor.id} value={instructor.id}>{instructor.name}</MenuItem>)}
 
                 </Select>
             </FormControl>

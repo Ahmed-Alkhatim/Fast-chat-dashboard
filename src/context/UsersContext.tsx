@@ -25,10 +25,8 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
 
     }
 
-
     const deleteUser = async (userId: string): Promise<void> => {
         console.log('The user with id ' + userId + 'will be deleted')
-
     }
 
     return (

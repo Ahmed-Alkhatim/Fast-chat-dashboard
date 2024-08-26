@@ -32,7 +32,7 @@ export default ({ title, isOpen, onClose, render }) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => onClose()}>close</Button>
-                    <Button onClick={() => handleSave()} autoFocus>
+                    <Button onClick={() => handleSave()} >
                         Save
                     </Button>
                 </DialogActions>

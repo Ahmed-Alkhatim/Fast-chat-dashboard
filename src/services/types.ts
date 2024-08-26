@@ -53,7 +53,7 @@ export interface LessonServiceType {
 export interface Course {
     id: string;
     title: string;
-    category: string;
+    category_id: string;
     price: string;
     instructor_id: string; // Reference to the instructor (User ID)
     lessons: string[]; // Array of lesson IDs

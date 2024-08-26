@@ -119,42 +119,4 @@ const users: User[] = [
     }
 ]
 
-const instructors: User[] = [
-    {
-        id: '1',
-        name: 'John Doe',
-        email: 'john@example.com',
-        role: 'instructor',
-        profile_picture: 'https://example.com/profile/john.jpg',
-        bio: 'Experienced Flutter Developer',
-        courses: ['courseId1', 'courseId3'],
-        created_at: '2024-08-01T10:00:00Z',
-        updated_at: '2024-08-15T12:00:00Z',
-        role_id: 1,
-    },
-    {
-        id: '3',
-        name: 'Michael Johnson',
-        email: 'michael@example.com',
-        role: 'instructor',
-        profile_picture: 'https://example.com/profile/michael.jpg',
-        bio: 'Senior JavaScript Developer',
-        courses: ['courseId5', 'courseId6'],
-        created_at: '2024-06-15T11:20:00Z',
-        updated_at: '2024-07-28T14:00:00Z',
-        role_id: 1,
-    },
-    {
-        id: '6',
-        name: 'Sophia Martinez',
-        email: 'sophia@example.com',
-        role: 'instructor',
-        profile_picture: 'https://example.com/profile/sophia.jpg',
-        bio: 'Data Science and AI Expert',
-        courses: ['courseId9', 'courseId10'],
-        created_at: '2024-03-22T09:00:00Z',
-        updated_at: '2024-07-29T10:10:00Z',
-        role_id: 1,
-    }
-];
 
