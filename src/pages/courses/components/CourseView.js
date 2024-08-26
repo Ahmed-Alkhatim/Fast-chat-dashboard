@@ -16,7 +16,7 @@ import { useUsersContext } from 'src/context/UsersContext';
 export default function CourseView({ onUpdateCourse }) {
 
     const { courses, fetchCourses, deleteCourse } = useCoursesContext();
-    const { fetchUsers } = useUsersContext()
+    const { fetchUsers, getInstructorByUserId } = useUsersContext()
     useEffect(() => {
         fetchCourses();
         fetchUsers()
@@ -38,6 +38,7 @@ export default function CourseView({ onUpdateCourse }) {
                         <TableCell>Price</TableCell>
                         <TableCell>Instructor</TableCell>
                         <TableCell>Lessons</TableCell>
+                        <TableCell>Students</TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
@@ -46,10 +47,11 @@ export default function CourseView({ onUpdateCourse }) {
                         <TableRow key={course.title}>
                             <TableCell component="th" scope="row">{course.title}</TableCell>
                             <TableCell component="th" scope="row">{course.description}</TableCell>
-                            <TableCell>{course.category}</TableCell>
+                            <TableCell>{course.category.name}</TableCell>
                             <TableCell>{course.price}</TableCell>
-                            <TableCell>{course.instructor_id}</TableCell>
+                            <TableCell>{getInstructorByUserId(course.instructor_id)?.name}</TableCell>
                             <TableCell>{course.lessons.length}</TableCell>
+                            <TableCell>{course.students_enrolled.length}</TableCell>
                             <TableCell>
                                 <ButtonsContainer>
                                     <EditIcon sx={{ fontSize: 20, cursor: 'pointer' }} onClick={() => onUpdateCourse(course)} />

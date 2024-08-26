@@ -34,7 +34,7 @@ const UpdateCourseForm = ({ courseData, onClose, handleOnSave }) => {
     ];
 
     const [instructor, setInstructor] = useState(courseData.instructor_id)
-    const [category, setCategory] = useState(courseData.category_id)
+    const [category, setCategory] = useState(courseData.category.id)
     const [data, setData] = useState(courseData)
 
     useEffect(() => {

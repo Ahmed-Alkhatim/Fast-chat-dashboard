@@ -1,7 +1,14 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react"
-import { UserContextType } from "./types"
 import { User } from "src/services/types"
 import UsersService from "src/services/userService"
+
+export interface UserContextType {
+    users: User[] | undefined,
+    instructors: User[] | undefined,
+    fetchUsers(): Promise<void>; 
+    deleteUser(userId: string): Promise<void>;
+    getInstructorByUserId(instructorId: string): User | undefined;
+}
 
 const UsersContext = createContext<UserContextType | null>(null)
 
@@ -25,12 +32,16 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
 
     }
 
+    const getInstructorByUserId = (instructorId: string): User | undefined => {
+        return instructors?.filter(instructor => instructor.id === instructorId)[0]
+    }
+
     const deleteUser = async (userId: string): Promise<void> => {
         console.log('The user with id ' + userId + 'will be deleted')
     }
 
     return (
-        <UsersContext.Provider value={{ users, instructors, fetchUsers, deleteUser }}>
+        <UsersContext.Provider value={{ users, instructors, fetchUsers, deleteUser, getInstructorByUserId }}>
             {children}
         </UsersContext.Provider>
     )

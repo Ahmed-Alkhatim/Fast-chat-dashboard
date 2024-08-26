@@ -50,16 +50,24 @@ export interface LessonServiceType {
     deleteLesson(lessonId: string): Promise<void>;
 }
 
+interface Students_enrolled {
+    id: string,
+    name: string,
+    email: string,
+    enrolledCourses: string[],
+}
 export interface Course {
     id: string;
     title: string;
-    category_id: string;
-    price: string;
-    instructor_id: string; // Reference to the instructor (User ID)
-    lessons: string[]; // Array of lesson IDs
     description: string;
+    instructor_id: string; // User ID of the instructor
+    category: { id: string, name: string };
+    price: string;
+    lessons: string[]; // Array of lesson IDs
+    students_enrolled: Students_enrolled[]; // Array of user IDs
     created_at: string;
     updated_at: string;
+
 }
 
 export interface CourseServiceType {

@@ -1,5 +1,5 @@
 import { User } from 'src/services/types';
-
+import { Course } from 'src/services/types';
 export type ErrCallbackType = (err: { [key: string]: string }) => void;
 
 export type LoginParams = {
@@ -36,19 +36,7 @@ export type AuthValuesType = {
   register: (params: RegisterParams, errorCallback?: ErrCallbackType) => void;
 };
 
-// Course Context Types
-export interface Course {
-  id: string;
-  title: string;
-  description: string;
-  instructor_id: string; // User ID of the instructor
-  category: string;
-  price: number;
-  lessons: string[]; // Array of lesson IDs
-  students_enrolled: string[]; // Array of user IDs
-  created_at: string;
-  updated_at: string;
-}
+
 
 export interface CourseServiceType {
   fetchCourses(): Promise<Course[] | undefined>;
