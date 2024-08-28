@@ -36,7 +36,7 @@ export default function SubscriptionView({ onUpdateSubscription }) {
             });
     };
 
-    const handleEdit = (subscription) => {
+    const handleEdit = (subscription: any) => {
         onUpdateSubscription(subscription);
     };
 

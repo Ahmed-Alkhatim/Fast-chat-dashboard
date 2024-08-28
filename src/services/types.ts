@@ -26,6 +26,7 @@ export interface Subscription {
     end_date: string;
     created_at: string;
     updated_at: string;
+    payment_id: string;
 }
 
 export interface SubscriptionServiceType {
