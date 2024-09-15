@@ -14,20 +14,20 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'tabler:school',
     },
     {
-      title: 'Subscriptions',
-      path: '/subscriptions',
+      title: 'Orders',
+      path: '/orders',
       icon: 'tabler:wallet',
     },
-    {
-      title: 'Lessons',
-      path: '/lessons',
-      icon: 'tabler:book',
-    },
-    {
-      title: 'Courses',
-      path: '/courses',
-      icon: 'tabler:video',
-    },
+    // {
+    //   title: 'Lessons',
+    //   path: '/lessons',
+    //   icon: 'tabler:book',
+    // },
+    // {
+    //   title: 'Courses',
+    //   path: '/courses',
+    //   icon: 'tabler:video',
+    // },
   ]
 }
 
