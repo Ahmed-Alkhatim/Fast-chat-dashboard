@@ -10,7 +10,9 @@ class UsersService implements UserServiceType {
 
     fetchUsers = async (): Promise<User[] | undefined> => {
         try {
-            // const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users').then(response => response.json());
+            const response = await fetch('http://localhost:3001/users').then(response => response.json());
+            console.log(response);
+
             return users
         } catch (error) {
             console.error('Error fetching data:', error);

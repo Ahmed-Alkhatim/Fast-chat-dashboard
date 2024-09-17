@@ -11,29 +11,25 @@ import { styled } from '@mui/material';
 import toast from 'react-hot-toast';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import OrderService from 'src/services/OrderService';
-import { io } from "socket.io-client";
+import useSocket from '../../hooks/useSocket';
 
 export default function OrdersView() {
     const [orders, setOrders] = useState([])
-    const socket = io('http://localhost:3000');
-
-
-    socket.on('chat message', (msg) => {
-        console.log('Message from server: ' + msg);
-    });
+    const socket = useSocket(localStorage.getItem('token'));
 
     useEffect(() => {
-        fetchOrders()
-        socket.emit('chat message', 'Hello from client');
-    }, []);
+        if (socket) {
+            socket.emit('getOrders');
 
-    const fetchOrders = async () => {
-        const list = await OrderService.fetchOrders()
-        console.log(" Fetched orders", list);
+            socket.on('orders', (data) => {
+                setOrders(data.data);
+            });
 
-        setOrders(list)
-    }
+            return () => {
+                socket.off('orders');
+            };
+        }
+    }, [socket]);
 
     return (
         <TableContainer component={Paper}>
@@ -53,7 +49,7 @@ export default function OrdersView() {
                 </TableHead>
                 <TableBody>
                     {orders?.map((order) => (
-                        <TableRow key={order.id}>
+                        <TableRow key={order._id}>
                             <TableCell component="th" scope="row">{order.orderId}</TableCell>
                             <TableCell>{order.customerNumber}</TableCell>
                             <TableCell>{order.orderTotal}</TableCell>
@@ -61,7 +57,7 @@ export default function OrdersView() {
                             <TableCell>{order.updatedAt}</TableCell>
                             <TableCell>{order.updatedAt}</TableCell>
                             <TableCell>{order.paymentMethod}</TableCell>
-                            <TableCell>{order.items.map(item => <span>
+                            <TableCell>{order.items.map((item, index) => <span key={index}>
                                 {item.name + ", "}
                             </span>)}</TableCell>
                             <TableCell>
