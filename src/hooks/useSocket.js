@@ -9,6 +9,7 @@ const useSocket = (token) => {
         if (token) {
             const socketInstance = io('fast-chat-eta.vercel.app', {
                 auth: { token }, // Pass token for authentication
+                withCredentials: true,
             });
 
 
