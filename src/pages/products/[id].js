@@ -20,6 +20,7 @@ const Product = () => {
         <>
             <Head>
                 {/* Open Graph tags for Facebook */}
+                <title>{product.name}</title>
                 <meta property="og:type" content="product" />
                 <meta property="og:title" content={product.name} />
                 <meta property="og:description" content={product.description} />
