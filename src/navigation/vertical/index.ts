@@ -11,7 +11,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'User Management',
       path: '/users',
-      icon: 'tabler:school',
+      icon: 'tabler:users',
     },
     {
       title: 'Orders',

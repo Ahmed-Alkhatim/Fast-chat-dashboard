@@ -112,7 +112,8 @@ const VerticalNavHeader = (props: Props) => {
         userNavMenuBranding(props)
       ) : (
         <LinkStyled href='/'>
-          <img className = "logo" src="/logo.png" alt="" />
+          {/* <img className = "logo" src="/logo.png" alt="" /> */}
+          <div style={{ fontSize: "24px" }}>Fast Chat </div>
           <HeaderTitle variant='h6' sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2.5 }) }}>
             {themeConfig.templateName}
           </HeaderTitle>
