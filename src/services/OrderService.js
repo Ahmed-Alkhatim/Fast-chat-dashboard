@@ -2,7 +2,7 @@ class OrdersService {
 
     fetchOrders = async () => {
         try {
-            const orders = await fetch('http://localhost:3000/orders', {
+            const orders = await fetch('/orders', {
                 headers: {
                     'authorization': `bearer ${localStorage.getItem('token')}`,
                 },
