@@ -49,11 +49,10 @@ const UpdateUserForm = ({ userData, onClose, handleOnSave }) => {
             autoComplete="off"
         >
 
-            <TextField onChange={handleChange} id="name" label="name" variant="outlined" value={data.name} size="small" />
-            <TextField onChange={handleChange} id="email" label="email" variant="outlined" value={data.email} size="small" />
+            <TextField onChange={handleChange} id="name" label="Name" variant="outlined" value={data.name} size="small" />
+            <TextField onChange={handleChange} id="email" label="Phone Number" variant="outlined" value={data.phoneNumber} size="small" />
             <TextField onChange={handleChange} id="password" label="password" variant="outlined" value={data.password} size="small" />
-            <TextField onChange={handleChange} id="bio" label="bio" variant="outlined" value={data.bio} size="small" />
-            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            {/* <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <InputLabel id="role">Role</InputLabel>
                 <Select
                     labelId="role"
@@ -64,7 +63,7 @@ const UpdateUserForm = ({ userData, onClose, handleOnSave }) => {
                 >
                     {roles.map(role => <MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>)}
                 </Select>
-            </FormControl>
+            </FormControl> */}
         </Box>
     )
 }

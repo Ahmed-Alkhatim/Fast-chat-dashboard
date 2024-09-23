@@ -6,18 +6,23 @@ export interface UserContextType {
     users: User[] | [],
     instructors: User[] | undefined,
     fetchUsers(): Promise<void>;
+    addUser(user: User): Promise<void>
     deleteUser(userId: string): Promise<void>;
     getInstructorByUserId(instructorId: string): User | undefined;
 }
 
 const UsersContext = createContext<UserContextType | null>(null)
 
+type Error = {
+    message: [];
+}
 interface UsersProviderProps {
     children: ReactNode;
 }
 
 export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
     const [users, setUsers] = useState<User[] | []>([])
+    const [errors, setError] = useState()
     const [instructors, setInstructors] = useState<User[] | undefined>()
 
     useEffect(() => {
@@ -31,6 +36,15 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
             .catch()
 
     }
+    const addUser = async (user: User) => {
+        try {
+            const newUser = await UsersService.addUser(user);
+            setUsers([...users, newUser]);
+        } catch (error: Error) {
+            console.error('Error adding user in context:', error.message);
+            setError(error.message);
+        }
+    };
 
     const getInstructorByUserId = (instructorId: string): User | undefined => {
         return instructors?.filter(instructor => instructor.id === instructorId)[0]
@@ -41,7 +55,7 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
     }
 
     return (
-        <UsersContext.Provider value={{ users, instructors, fetchUsers, deleteUser, getInstructorByUserId }}>
+        <UsersContext.Provider value={{ users, errors, instructors, addUser, fetchUsers, deleteUser, getInstructorByUserId }}>
             {children}
         </UsersContext.Provider>
     )

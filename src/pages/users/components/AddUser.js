@@ -3,6 +3,8 @@ import { Button, TextField, InputLabel, Select, MenuItem, FormControl } from "@m
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import userService from "src/services/userService";
+import { useUsersContext } from "src/context/UsersContext";
 
 export default function AddUser() {
     const [isOpen, setIsOpen] = useState(false)
@@ -23,14 +25,19 @@ export default function AddUser() {
 }
 
 const AddUserForm = ({ onClose, handleOnSave }) => {
-
+    const { addUser, errors, fetchUsers } = useUsersContext()
     const [userData, setUserData] = useState({})
-    const [role, setRole] = useState('')
+
+    const add = async (user) => {
+        const newUser = await addUser(userData)
+        await fetchUsers()
+        toast.success('user added successfully')
+        onClose()
+    }
 
     useEffect(() => {
         handleOnSave(() => {
-            toast.success('user added successfully')
-            onClose()
+            add()
         })
     }, [userData])
 
@@ -48,24 +55,11 @@ const AddUserForm = ({ onClose, handleOnSave }) => {
             noValidate
             autoComplete="off"
         >
-            <TextField onChange={handleChange} id="name" label="name" variant="outlined" value={userData.name} size="small" />
-            <TextField onChange={handleChange} id="email" label="email" variant="outlined" value={userData.email} size="small" />
+
+            <TextField onChange={handleChange} id="name" label="Name" variant="outlined" value={userData.name} size="small" />
+            <TextField onChange={handleChange} id="phoneNumber" label="Phone Number" variant="outlined" value={userData.phoneNumber} size="small" />
             <TextField onChange={handleChange} id="password" label="password" variant="outlined" value={userData.password} size="small" />
-            <TextField onChange={handleChange} id="bio" label="bio" variant="outlined" value={userData.bio} size="small" />
-            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small-label">Role</InputLabel>
-                <Select
-                    labelId="role"
-                    id="demo-select-small"
-                    value={role}
-                    label="Role"
-                    onChange={(e => setRole(e.target.value))}
-                >
-                    <MenuItem value={1}>Student</MenuItem>
-                    <MenuItem value={2}>Instructor</MenuItem>
-                    <MenuItem value={3}>Admin</MenuItem>
-                </Select>
-            </FormControl>
+            {/* <div>{}</div> */}
         </Box >
     )
 }

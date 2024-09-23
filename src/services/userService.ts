@@ -27,6 +27,29 @@ class UsersService implements UserServiceType {
         }
     }
 
+    addUser = async (user: User) => {
+        try {
+            const response = await fetch(apiURL + '/delivery/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName),
+                },
+                body: JSON.stringify(user)
+            });
+
+            if (response.status === 201) {
+                return response.json();  // Return the response if successful
+            } else {
+                throw new Error('Failed to add user: ' + response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;  // Re-throw the error to handle it in context
+        }
+    };
+
+
     async deleteUser(userId: string): Promise<void> {
 
         try {
@@ -34,7 +57,7 @@ class UsersService implements UserServiceType {
         }
 
         catch (error) {
-            console.error(`Failed to delete user with ID ${userId}`, error);
+            console.error(`Failed to delete user with ID ${userId} `, error);
             throw error;
         }
     }
