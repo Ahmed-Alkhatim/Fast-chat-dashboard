@@ -5,7 +5,7 @@ import { Course } from 'src/services/types';
 export type ErrCallbackType = (err: { [key: string]: string }) => void;
 
 export type LoginParams = {
-  phoneNumber: string;
+  username: string;
   password: string;
   rememberMe?: boolean;
 };

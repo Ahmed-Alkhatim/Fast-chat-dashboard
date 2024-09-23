@@ -85,17 +85,17 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
 }))
 
 const schema = yup.object().shape({
-  phoneNumber: yup.string().required(),
+  username: yup.string().required(),
   password: yup.string().min(5).required()
 })
 
 const defaultValues = {
   password: 'admin',
-  phoneNumber: 'admin@vuexy.com'
+  username: 'admin@vuexy.com'
 }
 
 interface FormData {
-  phoneNumber: string
+  username: string
   password: string
 }
 
@@ -125,9 +125,9 @@ const LoginPage = () => {
   })
 
   const onSubmit = (data: FormData) => {
-    const { phoneNumber, password } = data
-    auth.login({ phoneNumber, password }, () => {
-      setError('phoneNumber', {
+    const { username, password } = data
+    auth.login({ username, password }, () => {
+      setError('username', {
         type: 'manual',
         message: 'Email or Password is invalid'
       })
@@ -213,7 +213,7 @@ const LoginPage = () => {
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
               <FormControl fullWidth sx={{ mb: 4 }}>
                 <Controller
-                  name='phoneNumber'
+                  name='username'
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { value, onChange, onBlur } }) => (
@@ -223,12 +223,12 @@ const LoginPage = () => {
                       value={value}
                       onBlur={onBlur}
                       onChange={onChange}
-                      error={Boolean(errors.phoneNumber)}
+                      error={Boolean(errors.username)}
                       placeholder='admin@vuexy.com'
                     />
                   )}
                 />
-                {errors.phoneNumber && <FormHelperText sx={{ color: 'error.main' }}>{errors.phoneNumber.message}</FormHelperText>}
+                {errors.username && <FormHelperText sx={{ color: 'error.main' }}>{errors.username.message}</FormHelperText>}
               </FormControl>
               <FormControl fullWidth sx={{ mb: 1.5 }}>
                 <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
