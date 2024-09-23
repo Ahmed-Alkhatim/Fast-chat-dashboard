@@ -3,9 +3,9 @@ import { User } from "src/services/types"
 import UsersService from "src/services/userService"
 
 export interface UserContextType {
-    users: User[] | undefined,
+    users: User[] | [],
     instructors: User[] | undefined,
-    fetchUsers(): Promise<void>; 
+    fetchUsers(): Promise<void>;
     deleteUser(userId: string): Promise<void>;
     getInstructorByUserId(instructorId: string): User | undefined;
 }
@@ -17,7 +17,7 @@ interface UsersProviderProps {
 }
 
 export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
-    const [users, setUsers] = useState<User[] | undefined>()
+    const [users, setUsers] = useState<User[] | []>([])
     const [instructors, setInstructors] = useState<User[] | undefined>()
 
     useEffect(() => {

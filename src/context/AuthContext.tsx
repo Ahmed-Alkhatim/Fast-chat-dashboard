@@ -32,8 +32,9 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
+      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
       if (storedToken) {
+
         setLoading(true)
         await axios
           .get(authConfig.meEndpoint, {
@@ -68,17 +69,18 @@ const AuthProvider = ({ children }: Props) => {
     try {
       const response = await AuthService.login(params.username, params.password)
       console.log("handleLogin response", response.status, response.data);
+      localStorage.setItem(authConfig.storageTokenKeyName, response.token)
       params.rememberMe
         ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.token)
         : null
       const returnUrl = router.query.returnUrl
-
+      localStorage.setItem('userData', JSON.stringify(response.data))
       setUser({ ...response.data })
       params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.data)) : null
       router.push('/')
       const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
-      router.replace(redirectURL as string)
+      // router.replace(redirectURL as string)
     } catch (error) {
       if (errorCallback) errorCallback(error)
     }

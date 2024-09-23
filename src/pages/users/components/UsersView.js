@@ -23,6 +23,7 @@ export default function UsersView({ onUpdateUser }) {
         deleteUser(userId)
         toast.success('Deleted Successfully')
     }
+    if (!users) return <></>
 
     return (
         <>
@@ -46,7 +47,7 @@ export default function UsersView({ onUpdateUser }) {
                                     {user.phoneNumber}
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    {user.userName}
+                                    {user.name}
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     {user?.assignedOrders?.length}
