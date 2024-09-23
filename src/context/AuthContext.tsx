@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState, ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import AuthService from 'src/services/AuthService'
 import authConfig from 'src/configs/auth'
 import { AuthValuesType, RegisterParams, LoginParams, ErrCallbackType, UserDataType } from './types'
 
@@ -63,26 +64,25 @@ const AuthProvider = ({ children }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
-    axios
-      .post(authConfig.loginEndpoint, params)
-      .then(async response => {
-        params.rememberMe
-          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)
-          : null
-        const returnUrl = router.query.returnUrl
+  const handleLogin = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
+    try {
+      const response = await AuthService.login(params.username, params.password)
+      console.log("handleLogin response", response.status, response.data);
+      params.rememberMe
+        ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.token)
+        : null
+      const returnUrl = router.query.returnUrl
 
-        setUser({ ...response.data.userData })
-        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
+      setUser({ ...response.data })
+      params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.data)) : null
+      router.push('/')
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
-        const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+      router.replace(redirectURL as string)
+    } catch (error) {
+      if (errorCallback) errorCallback(error)
+    }
 
-        router.replace(redirectURL as string)
-      })
-
-      .catch(err => {
-        if (errorCallback) errorCallback(err)
-      })
   }
 
   const handleLogout = () => {

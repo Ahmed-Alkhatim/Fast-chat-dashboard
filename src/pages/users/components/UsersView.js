@@ -30,37 +30,33 @@ export default function UsersView({ onUpdateUser }) {
                 <Table sx={{ minWidth: 650 }} ariaLabel="simple table" >
                     <TableHead>
                         <TableRow>
-                            < TableCell> Info </TableCell>
-                            < TableCell> ٌRole</TableCell>
-                            < TableCell> Courses</TableCell>
-                            < TableCell> Bio</TableCell>
-                            < TableCell> Created at</TableCell>
-                            < TableCell> Updated at</TableCell>
+                            < TableCell>  Phone Number </TableCell>
+                            < TableCell> Name </TableCell>
+                            < TableCell> Assigned Orders</TableCell>
                             < TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {users?.map((user) => (
                             <TableRow
-                                key={user.name}
+                                key={user.phoneNumber}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row" >
-                                    {user.name}
-                                    <br />
-                                    {user.email}
+                                    {user.phoneNumber}
                                 </TableCell>
-
-                                <TableCell> {user.role} </TableCell>
-                                <TableCell> {user.courses.length} </TableCell>
-                                <TableCell> {user.bio} </TableCell>
-                                <TableCell> {user.created_at} </TableCell>
-                                <TableCell> {user.updated_at} </TableCell>
+                                <TableCell component="th" scope="row" >
+                                    {user.userName}
+                                </TableCell>
+                                <TableCell component="th" scope="row" >
+                                    {user?.assignedOrders?.length}
+                                </TableCell>
                                 <TableCell>
                                     <ButtonsContainer>
-                                        {/* <Button color='primary' variant = "contained" size='small' >Edit</Button> */}
-                                        <EditIcon sx={{ fontSize: 20, cursor: 'pointer' }} onClick={() => onUpdateUser(user)} Outlined />
-                                        <DeleteIcon sx={{ fontSize: 20, cursor: 'pointer' }} onClick={() => handleDelete(user.id)} Outlined />
+                                        <div>
+                                            <EditIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: "5px" }} onClick={() => onUpdateUser(user)} Outlined />
+                                            <DeleteIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: " 5px " }} onClick={() => handleDelete(user.id)} Outlined />
+                                        </div>
                                     </ButtonsContainer>
                                 </TableCell>
                             </TableRow>

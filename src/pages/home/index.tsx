@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent'
 const Home = () => {
   return (
     <Grid container spacing={6}>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <Card>
           <CardHeader title='Kick start your project 🚀'></CardHeader>
           <CardContent>
@@ -30,7 +30,7 @@ const Home = () => {
             <Typography>Please read our Authentication and ACL Documentations to get more out of them.</Typography>
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
     </Grid>
   )
 }

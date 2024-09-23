@@ -90,8 +90,8 @@ const schema = yup.object().shape({
 })
 
 const defaultValues = {
-  password: 'admin',
-  username: 'admin@vuexy.com'
+  password: '12345',
+  username: 'test'
 }
 
 interface FormData {
@@ -126,6 +126,7 @@ const LoginPage = () => {
 
   const onSubmit = (data: FormData) => {
     const { username, password } = data
+
     auth.login({ username, password }, () => {
       setError('username', {
         type: 'manual',
@@ -219,7 +220,7 @@ const LoginPage = () => {
                   render={({ field: { value, onChange, onBlur } }) => (
                     <TextField
                       autoFocus
-                      label='phone number'
+                      label='User Name'
                       value={value}
                       onBlur={onBlur}
                       onChange={onChange}
