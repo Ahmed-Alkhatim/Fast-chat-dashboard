@@ -1,96 +1,45 @@
-import { apiURL } from "./config"
+import axios from 'axios';
+import { apiURL } from './config';
 
-class ProductsService {
-    // Fetch all products
-    fetchProducts = async () => {
-        try {
-            const products = await fetch(apiURL + '/products', {
-                headers: {
-                    'authorization': `bearer ${localStorage.getItem('token')}`,
-                },
-            })
-            return await products.json();
-
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
+// Fetch all products
+export const fetchProducts = async () => {
+    try {
+        const response = await axios.get(apiURL);
+        return response.data; // Returns the fetched products
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        throw error;
     }
+};
 
-    // Create a new product
-    createProduct = async (productData) => {
-        try {
-            const response = await fetch('/products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': `bearer ${localStorage.getItem('token')}`,
-                },
-                body: JSON.stringify(productData),
-            });
-            if (!response.ok) {
-                throw new Error('Error creating product');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error creating product:', error);
-        }
+// Add a new product
+export const addProduct = async (productData) => {
+    try {
+        const response = await axios.post(apiURL, productData);
+        return response.data; // Returns the newly added product
+    } catch (error) {
+        console.error('Error adding product:', error);
+        throw error;
     }
+};
 
-    // Update an existing product
-    updateProduct = async (productId, productData) => {
-        try {
-            const response = await fetch(`/products/${productId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': `bearer ${localStorage.getItem('token')}`,
-                },
-                body: JSON.stringify(productData),
-            });
-            if (!response.ok) {
-                throw new Error('Error updating product');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error updating product:', error);
-        }
+// Update an existing product
+export const updateProduct = async (id, updatedData) => {
+    try {
+        const response = await axios.put(`${apiURL}/${id}`, updatedData);
+        return response.data; // Returns the updated product
+    } catch (error) {
+        console.error('Error updating product:', error);
+        throw error;
     }
+};
 
-    // Delete a product
-    deleteProduct = async (productId) => {
-        try {
-            const response = await fetch(`/products/${productId}`, {
-                method: 'DELETE',
-                headers: {
-                    'authorization': `bearer ${localStorage.getItem('token')}`,
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Error deleting product');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error deleting product:', error);
-        }
+// Delete a product
+export const deleteProduct = async (id) => {
+    try {
+        await axios.delete(`${apiURL}/${id}`);
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        throw error;
     }
-
-    // Fetch all categories
-    fetchCategories = async () => {
-        try {
-            const response = await fetch('/categories', {
-                headers: {
-                    'authorization': `bearer ${localStorage.getItem('token')}`,
-                },
-            });
-            if (!response.ok) {
-                throw new Error('Error fetching categories');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching categories:', error);
-        }
-    }
-}
-
-// Export an instance of ProductsService
-export default new ProductsService();
+};

@@ -5,25 +5,25 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useUsersContext } from 'src/context/UsersContext';
+import { useCategoryContext } from 'src/context/CategoryContext';
 import { useEffect } from 'react';
 import { styled } from '@mui/material';
 import toast from 'react-hot-toast'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-export default function UsersView({ onUpdateUser }) {
+export default function UsersView({ onUpdateCateg }) {
 
-    const { users, fetchUsers, deleteUser } = useUsersContext()
+    const { categories, fetchCategories, deleteCategory } = useCategoryContext()
     useEffect(() => {
-        fetchUsers()
+        fetchCategories()
     }, [])
 
     const handleDelete = (userId) => {
-        deleteUser(userId)
+        // deleteUser(userId)
         toast.success('Deleted Successfully')
     }
-    if (!users) return <></>
+    // if (!users) return <></>
 
     return (
         <>
@@ -31,31 +31,27 @@ export default function UsersView({ onUpdateUser }) {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table" >
                     <TableHead>
                         <TableRow>
-                            < TableCell>  Phone Number </TableCell>
                             < TableCell> Name </TableCell>
-                            < TableCell> Assigned Orders</TableCell>
+                            < TableCell> Description</TableCell>
                             < TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users?.map((user) => (
+                        {categories?.map((category) => (
                             <TableRow
-                                key={user.phoneNumber}
+                                key={category.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row" >
-                                    {user.phoneNumber}
+                                    {category.name}
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    {user.name}
-                                </TableCell>
-                                <TableCell component="th" scope="row" >
-                                    {user?.assignedOrders?.length}
+                                    {category.description}
                                 </TableCell>
                                 <TableCell>
                                     <ButtonsContainer>
                                         <div>
-                                            <EditIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: "5px" }} onClick={() => onUpdateUser(user)} Outlined />
+                                            <EditIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: "5px" }} onClick={() => onUpdateCateg(category)} Outlined />
                                             <DeleteIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: " 5px " }} onClick={() => handleDelete(user.id)} Outlined />
                                         </div>
                                     </ButtonsContainer>

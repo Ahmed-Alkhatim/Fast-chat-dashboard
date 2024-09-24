@@ -101,3 +101,10 @@ export interface SubscriptionContextType {
   fetchSubscriptions(): Promise<void>;
   deleteSubscription(subscriptionId: string): Promise<void>;
 }
+
+export interface Category {
+  _id: string;
+  name: string;
+  description?: string;
+  businessId: string;
+}

@@ -18,16 +18,16 @@ const navigation = (): VerticalNavItemsType => {
       path: '/orders',
       icon: 'tabler:wallet',
     },
-    // {
-    //   title: 'Lessons',
-    //   path: '/lessons',
-    //   icon: 'tabler:book',
-    // },
-    // {
-    //   title: 'Courses',
-    //   path: '/courses',
-    //   icon: 'tabler:video',
-    // },
+    {
+      title: 'categories',
+      path: '/categories',
+      icon: 'tabler:category',
+    },
+    {
+      title: 'Products',
+      path: '/products',
+      icon: 'tabler:layout-board-split',
+    },
   ]
 }
 

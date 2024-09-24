@@ -16,5 +16,5 @@ class OrdersService {
     }
 }
 
-new OrdersService().fetchOrders()
-// export default new OrdersService();
+// new OrdersService().fetchOrders()
+export default new OrdersService();
