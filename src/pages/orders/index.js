@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import useSocket from '../../hooks/useSocket';
 import demoServise from 'src/services/demoServise';
+import OrderService from 'src/services/OrderService';
 
 export default function OrdersView() {
     const [orders, setOrders] = useState([])
@@ -28,31 +29,39 @@ export default function OrdersView() {
     useEffect(() => {
         if (socket) {
             socket.emit('getOrders');
-            socket.emit('getMessages', { conversationId: "66e7900ae7096fdb8df2ba5f" })
-            socket.emit('getConversations')
+            // socket.emit('getMessages', { conversationId: "66e7900ae7096fdb8df2ba5f" })
+            // socket.emit('getOrders')
 
             socket.on('orders', (data) => {
+                console.log("hahahahahahah", data);
+
                 setOrders(data.data);
             });
 
-            socket.on('messages', (data) => {
-                serMessages(data.messages);
-                console.log('Messages received', data.messages);
-            });
+            // socket.on('messages', (data) => {
+            //     serMessages(data.messages);
+            //     console.log('Messages received', data.messages);
+            // });
 
-            socket.on('conversations', (data) => {
-                serMessages(data.conversations);
-                console.log('conversations received', data.conversations);
-            });
+            // socket.on('conversations', (data) => {
+            //     serMessages(data.conversations);
+            //     console.log('conversations received', data.conversations);
+            // });
 
             return () => {
-                socket.off('orders');
-                socket.off('messages');
-                socket.off('conversations');
+                // socket.off('orders');
+                // socket.off('messages');
+                // socket.off('conversations');
             };
         }
     }, [socket]);
 
+    useEffect(() => {
+        (async function () {
+            const orders = await OrderService.fetchOrders();
+            setOrders(orders);
+        })();
+    })
     const items = {
         "Test Rubber Duck_random_retailer_id": "Camera 28X",
         "Test Chair_random_retailer_id": "Smart phone  realme 6.5-inch",
@@ -71,12 +80,11 @@ export default function OrdersView() {
     const complete = async (order) => {
         await demoServise.complete(order.customerNumber)
         order.orderStatus = "completed"
-
     }
+
     const ready = async (order) => {
         await demoServise.ready(order.customerNumber)
         order.orderStatus = "ready"
-
     }
 
     const [btn, showBtn] = useState(null)
@@ -96,41 +104,6 @@ export default function OrdersView() {
                         <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {orders?.reverse()?.map((order) => (
-                        <TableRow key={order._id}>
-                            {/* <TableCell component="th" scope="row">{order.orderId}</TableCell> */}
-                            <TableCell>{order.customerNumber}</TableCell>
-                            <TableCell>{getTotal(order.items)}</TableCell>
-                            <TableCell><Button color={order.orderStatus == "completed" ? "success" : 'warning'} variant="contained" size="small">{order.orderStatus}</Button></TableCell>
-                            <TableCell>
-                                {order.updatedAt.split("T")[0]}
-                                <br />
-                                {addTwoHours(order.updatedAt).split("T")[1].slice(0, 8)}
-
-                            </TableCell>
-                            {/* <TableCell>{order.updatedAt}</TableCell> */}
-                            <TableCell>Cash</TableCell>
-                            <TableCell>{order.items.map((item, index) => <span key={index}>
-                                <div>{items[item.itemId]}</div>
-                            </span>)}</TableCell>
-                            <TableCell>
-                                <ButtonsContainer>
-                                    <div className='flex flex-col'>
-                                        <div style={{ marginBottom: "3px" }}>
-                                            <Button color="success" variant="contained" size="small" onClick={() => { complete(order); }}>Complete</Button>
-                                        </div>
-                                        <div >
-                                            <Button color="info" variant="contained" size="small" onClick={() => { ready(order); }}>Ready</Button>
-                                        </div>
-                                    </div>
-                                    {/* <EditIcon sx={{ fontSize: 20, cursor: 'pointer' }} onClick={() => onUpdateLesson(lesson)} />
-                                    <DeleteIcon sx={{ fontSize: 20, cursor: 'pointer' }} onClick={() => handleDelete(lesson.id)} /> */}
-                                </ButtonsContainer>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
             </Table>
         </TableContainer >
     );

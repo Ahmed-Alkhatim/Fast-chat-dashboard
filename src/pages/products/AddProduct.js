@@ -3,7 +3,8 @@ import { Button, TextField, FormControl, InputLabel, Select, MenuItem } from "@m
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useUsersContext } from "src/context/UsersContext";
+import { useCategoryContext } from "src/context/CategoryContext";
+import { useProductsContext } from "src/context/ProductsContext";
 
 export default function AddProduct() {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,34 +25,32 @@ export default function AddProduct() {
 }
 
 const AddProductForm = ({ onClose, handleOnSave }) => {
-    // const { instructors } = useUsersContext()
-    const categories = [
-        { id: 1, name: 'Programming' },
-        { id: 2, name: 'Data Science' },
-        { id: 3, name: 'Design' },
-        { id: 4, name: 'Marketing' },
-        { id: 5, name: 'Web Development' },
-    ];
-
-    const [productData, setCourseData] = useState({});
+    const { categories } = useCategoryContext()
+    const { addProduct, errors } = useProductsContext()
+    const [productData, setCategoryData] = useState({});
     const [category, setCategory] = useState('');
-    const [instructor, setInstructor] = useState('');
 
     useEffect(() => {
-        handleOnSave(() => {
-            toast.success('Course added successfully');
-            onClose();
-            console.log({ ...productData, category, instructor });
+        handleOnSave(async () => {
+            try {
+                await addProduct({ ...productData, category })
+                toast.success('Course added successfully');
+                onClose();
+            } catch (error) {
+                toast.error('Failed to add category');
+                console.error('Error adding category:', error['category']);
+            }
 
         });
-    }, [productData, category, instructor]);
+    }, [productData, category]);
 
     const handleChange = (e) => {
-        setCourseData({
+        setCategoryData({
             ...productData,
             [e.target.name]: e.target.value
         });
     };
+
 
     return (
         <Box
@@ -62,24 +61,25 @@ const AddProductForm = ({ onClose, handleOnSave }) => {
             noValidate
             autoComplete="off"
         >
-            <TextField name="nameAr" onChange={handleChange} id="outlined-basic" label="English Name" variant="outlined" value={productData.name || ''} size="small" />
-            <TextField name="name" onChange={handleChange} id="outlined-basic" label="Arabic Name" variant="outlined" value={productData.nameAr || ''} size="small" />
+            <TextField name="name" onChange={handleChange} id="name" label="Arabic Name" variant="outlined" value={productData.name || ''} size="small" helperText={errors['name']} />
+            <TextField name="nameAr" onChange={handleChange} id="nameAr" label="English Name" variant="outlined" value={productData.nameAr || ''} size="small" helperText={errors['nameAr']} />
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small-label">Category</InputLabel>
+                <InputLabel id="category">Category</InputLabel>
                 <Select
-                    labelId="role"
-                    id="demo-select-small"
+                    labelId="category"
+                    id="category"
                     value={category}
                     label="Category"
                     onChange={(e => setCategory(e.target.value))}
+                    helperText={errors['category']}
                 >
-                    {categories.map(category => <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>)}
+                    {categories.map(category => <MenuItem key={category._id} value={category._id}>{category.name}</MenuItem>)}
 
                 </Select>
             </FormControl>
-            <TextField name="description" onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={productData.description || ''} size="small" />
-            <TextField name="price" onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={productData.price || ''} size="small" />
-            <TextField name="link" onChange={handleChange} id="outlined-basic" label="Link" variant="outlined" value={productData.link || ''} size="small" />
+            <TextField name="description" helperText={errors['description']} onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={productData.description || ''} size="small" />
+            <TextField name="price" helperText={errors['price']} onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={productData.price || ''} size="small" />
+            <TextField name="link" helperText={errors['link']} onChange={handleChange} id="outlined-basic" label="Link" variant="outlined" value={productData.link || ''} size="small" />
 
         </Box>
     );

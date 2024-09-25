@@ -18,6 +18,8 @@ const CategoryService = {
                     Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName),
                 },
             });
+            console.log("Fetched", response);
+
             if (response.status != 200) {
                 throw new Error('Failed to fetch categories');
             }
@@ -61,6 +63,8 @@ const CategoryService = {
 
     // Update a category by ID
     async updateCategory(categoryId: string, category: Category): Promise<Category> {
+        console.log(`${apiURL}/categories/${categoryId}`);
+
         try {
             const response = await fetch(`${apiURL}/categories/${categoryId}`, {
                 method: 'PUT',

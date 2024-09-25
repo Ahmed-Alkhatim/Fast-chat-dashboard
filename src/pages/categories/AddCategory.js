@@ -68,11 +68,20 @@ const AddCategoryForm = ({ onClose, handleOnSave }) => {
             <TextField
                 name="name"
                 onChange={handleChange}
-                label="Category Name"
+                label="English Name"
                 variant="outlined"
                 value={categoryData.name}
                 size="small"
                 helperText={errors['name']}
+            />
+            <TextField
+                name="nameAr"
+                onChange={handleChange}
+                label="Arabic name "
+                variant="outlined"
+                value={categoryData.nameAr}
+                size="small"
+                helperText={errors['nameAr']}
             />
             <TextField
                 name="description"

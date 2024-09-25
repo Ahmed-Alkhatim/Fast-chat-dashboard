@@ -1,9 +1,9 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-
+import ProductService from 'src/services/productService';
 // Create the context
 const ProductsContext = createContext({
     products: [],
+    errors: {},
     fetchProducts: () => { },
     addProduct: () => { },
     updateProduct: () => { },
@@ -13,12 +13,14 @@ const ProductsContext = createContext({
 // Create a provider component
 export const ProductsProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
-
+    const [errors, setErrors] = useState({});
     // Fetch all products from the backend
     const fetchProducts = async () => {
         try {
-            const response = await axios.get('/api/products');
-            setProducts(response.data);
+            const response = await ProductService.fetchProducts();
+            console.log("adjhagjhdgajhdahgdf", response);
+
+            setProducts(response);
         } catch (error) {
             console.error('Error fetching products:', error);
         }
@@ -27,18 +29,20 @@ export const ProductsProvider = ({ children }) => {
     // Add a new product
     const addProduct = async (productData) => {
         try {
-            const response = await axios.post('/api/products', productData);
-            setProducts([...products, response.data]);
+            const response = await ProductService.addProduct(productData);
+            setProducts([...products, response]);
         } catch (error) {
-            console.error('Error adding product:', error);
+            console.error('Error context adding product:', error);
+            setErrors[error]
+            throw error
         }
     };
 
     // Update an existing product
-    const updateProduct = async (id, updatedData) => {
+    const updateProduct = async (updatedData) => {
         try {
-            const response = await axios.put(`/api/products/${id}`, updatedData);
-            setProducts(products.map((product) => (product._id === id ? response.data : product)));
+            const response = await ProductService.updateProduct(updatedData);
+            setProducts(products.map((product) => (product._id === updatedData._id ? response : product)));
         } catch (error) {
             console.error('Error updating product:', error);
         }
@@ -47,10 +51,11 @@ export const ProductsProvider = ({ children }) => {
     // Delete a product
     const deleteProduct = async (id) => {
         try {
-            await axios.delete(`/api/products/${id}`);
-            setProducts(products.filter((product) => product._id !== id));
+            await ProductService.deleteProduct(id);
+            setProducts(products.filter(cat => cat._id !== id));
         } catch (error) {
-            console.error('Error deleting product:', error);
+            console.log("error deleting product", error);
+
         }
     };
     // Automatically fetch products when the component mounts
@@ -59,7 +64,7 @@ export const ProductsProvider = ({ children }) => {
         fetchProducts();
     }, []);
     return (
-        <ProductsContext.Provider value={{ products, fetchProducts, addProduct, updateProduct, deleteProduct }}>
+        <ProductsContext.Provider value={{ products, errors, fetchProducts, addProduct, updateProduct, deleteProduct }}>
             {children}
         </ProductsContext.Provider>
     );

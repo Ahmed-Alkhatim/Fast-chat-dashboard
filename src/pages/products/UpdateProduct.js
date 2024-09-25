@@ -3,7 +3,8 @@ import { TextField, FormControl, InputLabel, MenuItem, Select } from "@mui/mater
 import Box from "@mui/material/Box";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { useUsersContext } from "src/context/UsersContext";
+import { useProductsContext } from "src/context/ProductsContext";
+import { useCategoryContext } from "src/context/CategoryContext";
 
 export default function UpdateCourse({ productData, isOpen, onClose }) {
 
@@ -24,29 +25,26 @@ export default function UpdateCourse({ productData, isOpen, onClose }) {
 
 const UpdateCourseForm = ({ productData, onClose, handleOnSave }) => {
 
-    // const { instructors } = useUsersContext()
-    const categories = [
-        { id: 1, name: 'Programming' },
-        { id: 2, name: 'Data Science' },
-        { id: 3, name: 'Design' },
-        { id: 4, name: 'Marketing' },
-        { id: 5, name: 'Web Development' },
-    ];
-
-    // const [instructor, setInstructor] = useState(productData.instructor_id)
-    // const [category, setCategory] = useState(productData.category.id)
-    const [data, setData] = useState(productData)
+    const { categories } = useCategoryContext()
+    const { errors, updateProduct } = useProductsContext()
+    const [data, setCategoryData] = useState(productData);
+    const [category, setCategory] = useState(productData.category._id);
 
     useEffect(() => {
-        handleOnSave(() => {
-            toast.success('Course updated successfully');
-            onClose();
-            console.log(data);
+        handleOnSave(async () => {
+            try {
+                await updateProduct(data)
+                toast.success('Course updated successfully');
+                onClose();
+            } catch (error) {
+                console.log(error);
+
+            }
         });
-    }, [data]);
+    }, [data, category]);
 
     const handleChange = (event) => {
-        setData({ ...data, [event.target.name]: event.target.value });
+        setCategoryData({ ...data, [event.target.name]: event.target.value });
     }
 
     return (
@@ -58,24 +56,25 @@ const UpdateCourseForm = ({ productData, onClose, handleOnSave }) => {
             noValidate
             autoComplete="off"
         >
-            <TextField name="nameAr" onChange={handleChange} id="outlined-basic" label="English Name" variant="outlined" value={data.name || ''} size="small" />
-            <TextField name="name" onChange={handleChange} id="outlined-basic" label="Arabic Name" variant="outlined" value={data.nameAr || ''} size="small" />
-            {/* <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small-label">Category</InputLabel>
+            <TextField name="name" onChange={handleChange} id="name" label="Arabic Name" variant="outlined" value={data.name || ''} size="small" helperText={errors['name']} />
+            <TextField name="nameAr" onChange={handleChange} id="nameAr" label="English Name" variant="outlined" value={data.nameAr || ''} size="small" helperText={errors['nameAr']} />
+            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                <InputLabel id="category">Category</InputLabel>
                 <Select
-                    labelId="role"
-                    id="demo-select-small"
+                    labelId="category"
+                    id="category"
                     value={category}
                     label="Category"
                     onChange={(e => setCategory(e.target.value))}
+                    helperText={errors['category']}
                 >
-                    {categories.map(category => <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>)}
+                    {categories.map(category => <MenuItem key={category._id} value={category._id}>{category.name}</MenuItem>)}
 
                 </Select>
-            </FormControl> */}
-            <TextField name="description" onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={data.description || ''} size="small" />
-            <TextField name="price" onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={data.price || ''} size="small" />
-            <TextField name="link" onChange={handleChange} id="outlined-basic" label="Link" variant="outlined" value={data.link || ''} size="small" />
+            </FormControl>
+            <TextField name="description" helperText={errors['description']} onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={data.description || ''} size="small" />
+            <TextField name="price" helperText={errors['price']} onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={data.price || ''} size="small" />
+            <TextField name="link" helperText={errors['link']} onChange={handleChange} id="outlined-basic" label="Link" variant="outlined" value={data.link || ''} size="small" />
 
         </Box>
     );
