@@ -1,5 +1,5 @@
 import { apiURL } from "./config";
-
+import authConfig from 'src/configs/auth'
 export interface Category {
     _id?: string;
     name: string;
@@ -15,6 +15,7 @@ const CategoryService = {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName),
                 },
             });
             if (response.status != 200) {
@@ -34,11 +35,20 @@ const CategoryService = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName),
                 },
                 body: JSON.stringify(category),
             });
+            if (response.status == 401) {
+                throw new Error('Un Authorized')
+            }
 
-            if (!response.ok) {
+            if (response.status == 409) {
+                const errors = await response.json()
+                throw errors.errors
+            }
+
+            if (response.status != 200) {
                 throw new Error('Failed to add category');
             }
 
@@ -56,12 +66,13 @@ const CategoryService = {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName),
                 },
                 body: JSON.stringify(category),
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to update category');
+            if (response.status == 401) {
+                throw new Error('Un Authorized')
             }
 
             return await response.json();
@@ -78,10 +89,11 @@ const CategoryService = {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName),
                 },
             });
 
-            if (!response.ok) {
+            if (response.status != 204) {
                 throw new Error('Failed to delete category');
             }
         } catch (error) {

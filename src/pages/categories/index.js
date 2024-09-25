@@ -5,12 +5,10 @@ import { useState } from "react"
 import AddCategory from "./AddCategory"
 
 export default function Users() {
-    const [categoryData , setCategData] = useState({})
+    const [categoryData, setCategData] = useState({})
     const [isUpdateOpen, setIsUpdateOpen] = useState(false)
 
     const handleUpdate = (data) => {
-        console.log("jkajgdajhdaj", data);
-
         setCategData(data)
         setIsUpdateOpen(true)
     }

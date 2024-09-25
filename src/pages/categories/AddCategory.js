@@ -29,7 +29,7 @@ export default function AddCategory() {
 }
 
 const AddCategoryForm = ({ onClose, handleOnSave }) => {
-    const { addCategory } = useCategoryContext(); // Access the addCategory function from context
+    const { addCategory, errors } = useCategoryContext(); // Access the addCategory function from context
     const [categoryData, setCategoryData] = useState({
         name: '',
         description: '',
@@ -72,6 +72,7 @@ const AddCategoryForm = ({ onClose, handleOnSave }) => {
                 variant="outlined"
                 value={categoryData.name}
                 size="small"
+                helperText={errors['name']}
             />
             <TextField
                 name="description"
@@ -79,14 +80,6 @@ const AddCategoryForm = ({ onClose, handleOnSave }) => {
                 label="Description"
                 variant="outlined"
                 value={categoryData.description}
-                size="small"
-            />
-            <TextField
-                name="businessId"
-                onChange={handleChange}
-                label="Business ID"
-                variant="outlined"
-                value={categoryData.businessId}
                 size="small"
             />
         </Box>

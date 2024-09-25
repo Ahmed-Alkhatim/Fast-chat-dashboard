@@ -33,7 +33,7 @@ const AddProductForm = ({ onClose, handleOnSave }) => {
         { id: 5, name: 'Web Development' },
     ];
 
-    const [courseData, setCourseData] = useState({});
+    const [productData, setCourseData] = useState({});
     const [category, setCategory] = useState('');
     const [instructor, setInstructor] = useState('');
 
@@ -41,14 +41,14 @@ const AddProductForm = ({ onClose, handleOnSave }) => {
         handleOnSave(() => {
             toast.success('Course added successfully');
             onClose();
-            console.log({ ...courseData, category, instructor });
+            console.log({ ...productData, category, instructor });
 
         });
-    }, [courseData, category, instructor]);
+    }, [productData, category, instructor]);
 
     const handleChange = (e) => {
         setCourseData({
-            ...courseData,
+            ...productData,
             [e.target.name]: e.target.value
         });
     };
@@ -62,9 +62,8 @@ const AddProductForm = ({ onClose, handleOnSave }) => {
             noValidate
             autoComplete="off"
         >
-            <TextField name="title" onChange={handleChange} id="outlined-basic" label="Title" variant="outlined" value={courseData.title || ''} size="small" />
-            <TextField name="description" onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={courseData.description || ''} size="small" />
-            <TextField name="price" onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={courseData.price || ''} size="small" />
+            <TextField name="nameAr" onChange={handleChange} id="outlined-basic" label="English Name" variant="outlined" value={productData.name || ''} size="small" />
+            <TextField name="name" onChange={handleChange} id="outlined-basic" label="Arabic Name" variant="outlined" value={productData.nameAr || ''} size="small" />
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <InputLabel id="demo-select-small-label">Category</InputLabel>
                 <Select
@@ -78,19 +77,10 @@ const AddProductForm = ({ onClose, handleOnSave }) => {
 
                 </Select>
             </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="demo-select-small-label">Instructor</InputLabel>
-                <Select
-                    labelId="instructor_id"
-                    id="demo-select-small"
-                    value={instructor}
-                    label="Instructor"
-                    onChange={(e => setInstructor(e.target.value))}
-                >
-                    {/* {instructors?.map(instructor => <MenuItem key={instructor.id} value={instructor.id}>{instructor.name}</MenuItem>)} */}
+            <TextField name="description" onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={productData.description || ''} size="small" />
+            <TextField name="price" onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={productData.price || ''} size="small" />
+            <TextField name="link" onChange={handleChange} id="outlined-basic" label="Link" variant="outlined" value={productData.link || ''} size="small" />
 
-                </Select>
-            </FormControl>
         </Box>
     );
 };

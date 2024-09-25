@@ -6,7 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useCategoryContext } from 'src/context/CategoryContext';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material';
 import toast from 'react-hot-toast'
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -19,8 +19,8 @@ export default function UsersView({ onUpdateCateg }) {
         fetchCategories()
     }, [])
 
-    const handleDelete = (userId) => {
-        // deleteUser(userId)
+    const handleDelete = (categoryId) => {
+        deleteCategory(categoryId)
         toast.success('Deleted Successfully')
     }
     // if (!users) return <></>
@@ -31,32 +31,37 @@ export default function UsersView({ onUpdateCateg }) {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table" >
                     <TableHead>
                         <TableRow>
-                            < TableCell> Name </TableCell>
+                            < TableCell > Name English </TableCell>
+                            < TableCell > Name Arabic</TableCell>
                             < TableCell> Description</TableCell>
                             < TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {categories?.map((category) => (
-                            <TableRow
-                                key={category.id}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell component="th" scope="row" >
-                                    {category.name}
-                                </TableCell>
-                                <TableCell component="th" scope="row" >
-                                    {category.description}
-                                </TableCell>
-                                <TableCell>
-                                    <ButtonsContainer>
-                                        <div>
-                                            <EditIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: "5px" }} onClick={() => onUpdateCateg(category)} Outlined />
-                                            <DeleteIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: " 5px " }} onClick={() => handleDelete(user.id)} Outlined />
-                                        </div>
-                                    </ButtonsContainer>
-                                </TableCell>
-                            </TableRow>
+                            <React.Fragment key={category._id} >
+                                <TableRow
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row" >
+                                        {category.name}
+                                    </TableCell>
+                                    <TableCell component="th" scope="row"  >
+                                        {category.nameAr}
+                                    </TableCell>
+                                    <TableCell component="th" scope="row" sx={{ maxWidth: "500px" }}>
+                                        {category.description}
+                                    </TableCell>
+                                    <TableCell>
+                                        <ButtonsContainer>
+                                            <div>
+                                                <EditIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: "5px" }} onClick={() => onUpdateCateg(category)} Outlined />
+                                                <DeleteIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: " 5px " }} onClick={() => handleDelete(category._id)} Outlined />
+                                            </div>
+                                        </ButtonsContainer>
+                                    </TableCell>
+                                </TableRow>
+                            </React.Fragment>
                         ))}
                     </TableBody>
                 </Table>

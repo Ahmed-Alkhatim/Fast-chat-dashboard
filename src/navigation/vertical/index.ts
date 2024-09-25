@@ -9,9 +9,9 @@ const navigation = (): VerticalNavItemsType => {
     //   icon: 'tabler:smart-home',
     // },
     {
-      title: 'User Management',
+      title: 'Delivery',
       path: '/users',
-      icon: 'tabler:users',
+      icon: 'tabler:car',
     },
     {
       title: 'Orders',
