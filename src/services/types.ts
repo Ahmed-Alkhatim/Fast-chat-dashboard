@@ -1,4 +1,5 @@
 export interface User {
+    _id: string;
     id: string,
     name: string;
     email: string;
@@ -18,6 +19,7 @@ export interface UserServiceType {
 }
 
 export interface Subscription {
+    _id: string;
     id: string;
     user_id: string; // Reference to the user (User ID)
     course_id: string; // Reference to the course (Course ID)

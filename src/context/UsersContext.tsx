@@ -51,7 +51,13 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
     }
 
     const deleteUser = async (userId: string): Promise<void> => {
-        console.log('The user with id ' + userId + 'will be deleted')
+        try {
+            await UsersService.deleteUser(userId);
+            setUsers(users.filter(user => user._id !== userId));
+        } catch (error) {
+            console.error('Error adding user in context:', error.message);
+            setError(error.message);
+        }
     }
 
     return (

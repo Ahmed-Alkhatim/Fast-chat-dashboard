@@ -53,12 +53,18 @@ class UsersService implements UserServiceType {
     async deleteUser(userId: string): Promise<void> {
 
         try {
-            await fetch(`/users/${userId}`)
-        }
+            const response = await fetch(`${apiURL}/delivery/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName),
+                }
+            });
 
-        catch (error) {
-            console.error(`Failed to delete user with ID ${userId} `, error);
-            throw error;
+            if (response.status == 200) {
+                return response.json()
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
         }
     }
 }

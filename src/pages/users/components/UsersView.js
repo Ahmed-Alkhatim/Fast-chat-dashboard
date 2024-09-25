@@ -56,7 +56,7 @@ export default function UsersView({ onUpdateUser }) {
                                     <ButtonsContainer>
                                         <div>
                                             <EditIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: "5px" }} onClick={() => onUpdateUser(user)} Outlined />
-                                            <DeleteIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: " 5px " }} onClick={() => handleDelete(user.id)} Outlined />
+                                            <DeleteIcon sx={{ fontSize: 20, cursor: 'pointer', marginInline: " 5px " }} onClick={() => handleDelete(user._id)} Outlined />
                                         </div>
                                     </ButtonsContainer>
                                 </TableCell>
