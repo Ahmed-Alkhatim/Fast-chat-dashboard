@@ -23,9 +23,9 @@ export default function ProductsView({ onUpdateProduct }) {
         fetchCategories()
     }, []);
 
-    const handleDelete = (productId) => {
-        deleteProduct(productId);
-        toast.success('Course Deleted Successfully');
+    const handleDelete = async (productId) => {
+        await deleteProduct(productId);
+        toast.success('Product Deleted Successfully');
     }
 
     return (

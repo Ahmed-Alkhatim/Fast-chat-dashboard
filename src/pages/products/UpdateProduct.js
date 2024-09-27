@@ -33,8 +33,8 @@ const UpdateCourseForm = ({ productData, onClose, handleOnSave }) => {
     useEffect(() => {
         handleOnSave(async () => {
             try {
-                await updateProduct(data)
-                toast.success('Course updated successfully');
+                await updateProduct({ ...data, category })
+                toast.success('Product updated successfully');
                 onClose();
             } catch (error) {
                 console.log(error);

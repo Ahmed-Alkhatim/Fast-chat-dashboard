@@ -49,6 +49,29 @@ class UsersService implements UserServiceType {
         }
     };
 
+    updateUser = async (userData) => {
+        try {
+            console.log("userData to be updated", userData);
+
+            const response = await fetch(apiURL + '/delivery/users/' + userData._id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName),
+                },
+                body: JSON.stringify(userData)
+            });
+
+            if (response.status === 200) {
+                return await response.json();
+            } else {
+                throw new Error('Failed to add user: ' + response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;  // Re-throw the error to handle it in context
+        }
+    }
 
     async deleteUser(userId: string): Promise<void> {
 

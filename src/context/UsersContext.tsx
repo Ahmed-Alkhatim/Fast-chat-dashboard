@@ -36,10 +36,21 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
             .catch()
 
     }
+
+    const updateUser = async (userData) => {
+        try {
+            const updatedUser = await UsersService.updateUser(userData)
+            setUsers(users.map(user => (user._id == userData._id ? updateUser : user)))
+        } catch (error) {
+            setError(error)
+            throw error
+        }
+    }
+
     const addUser = async (user: User) => {
         try {
             const newUser = await UsersService.addUser(user);
-            setUsers([...users, newUser]);
+            setUsers([newUser, ...users]);
         } catch (error: Error) {
             console.error('Error adding user in context:', error.message);
             setError(error.message);
@@ -61,7 +72,7 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
     }
 
     return (
-        <UsersContext.Provider value={{ users, errors, instructors, addUser, fetchUsers, deleteUser, getInstructorByUserId }}>
+        <UsersContext.Provider value={{ users, errors, instructors, addUser, updateUser, fetchUsers, deleteUser, getInstructorByUserId }}>
             {children}
         </UsersContext.Provider>
     )

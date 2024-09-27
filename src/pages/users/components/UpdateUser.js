@@ -3,6 +3,7 @@ import { TextField, InputLabel, Select, MenuItem, FormControl } from "@mui/mater
 import Box from "@mui/material/Box";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
+import { useUsersContext } from "src/context/UsersContext";
 
 export default function UpdateUser({ userData, isOpen, onClose }) {
 
@@ -22,18 +23,23 @@ export default function UpdateUser({ userData, isOpen, onClose }) {
 }
 
 const UpdateUserForm = ({ userData, onClose, handleOnSave }) => {
-
+    const { updateUser } = useUsersContext()
     const roles = [{ name: 'Admin', id: 1 }, { name: 'Instructor', id: 2 }, { name: 'Student', id: 3 }]
 
     const [data, setData] = useState(userData)
-    const [role, setRole] = useState(userData.role_id)
 
     useEffect(() => {
-        handleOnSave(() => {
-            toast.success('user updated successfully')
-            onClose()
+        handleOnSave(async () => {
+            try {
+                await updateUser(data)
+                toast.success('user updated successfully')
+                onClose()
+            } catch (error) {
+
+            }
+
         })
-    }, [data, role])
+    }, [data])
 
     const handleChange = (event) => {
         setData({ ...data, [event.target.id]: event.target.value })
@@ -48,22 +54,9 @@ const UpdateUserForm = ({ userData, onClose, handleOnSave }) => {
             noValidate
             autoComplete="off"
         >
-
             <TextField onChange={handleChange} id="name" label="Name" variant="outlined" value={data.name} size="small" />
-            <TextField onChange={handleChange} id="email" label="Phone Number" variant="outlined" value={data.phoneNumber} size="small" />
+            <TextField onChange={handleChange} id="phoneNumber" label="Phone Number" variant="outlined" value={data.phoneNumber} size="small" />
             <TextField onChange={handleChange} id="password" label="password" variant="outlined" value={data.password} size="small" />
-            {/* <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="role">Role</InputLabel>
-                <Select
-                    labelId="role"
-                    id="role"
-                    value={role}
-                    label="Role"
-                    onChange={(e) => setRole(e.target.value)}
-                >
-                    {roles.map(role => <MenuItem key={role.id} value={role.id}>{role.name}</MenuItem>)}
-                </Select>
-            </FormControl> */}
         </Box>
     )
 }
