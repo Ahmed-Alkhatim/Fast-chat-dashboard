@@ -1,11 +1,4 @@
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { useCoursesContext } from 'src/context/CoursesContext';
+import { Table, TableBody, TableRow, TableHead, TableContainer, TableCell, Paper, Button } from '@mui/material';
 import { useEffect } from 'react';
 import { styled } from '@mui/material';
 import toast from 'react-hot-toast';
@@ -29,7 +22,7 @@ export default function ProductsView({ onUpdateProduct }) {
     }
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ marginBottom: 10 }} >
             <Table sx={{ minWidth: 650 }} aria-label="product table">
                 <TableHead>
                     <TableRow>
@@ -37,10 +30,11 @@ export default function ProductsView({ onUpdateProduct }) {
                         <TableCell>Arabic Name</TableCell>
                         <TableCell>Description</TableCell>
                         <TableCell>Price</TableCell>
+                        <TableCell>Quantity</TableCell>
                         {/* <TableCell>Currency</TableCell> */}
                         <TableCell>Category</TableCell>
                         {/* <TableCell>Retailer ID</TableCell> */}
-                        <TableCell>Link</TableCell>
+                        <TableCell>Instock</TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
@@ -51,14 +45,15 @@ export default function ProductsView({ onUpdateProduct }) {
                             <TableCell component="th" scope="row">{product.nameAr}</TableCell>
                             <TableCell>{product.description}</TableCell>
                             <TableCell>{product.price}</TableCell>
-                            {/* <TableCell>{product.currency}</TableCell> */}
+                            <TableCell>{product.quantity}</TableCell>
                             <TableCell>{product.category?.name}</TableCell>
+                            <TableCell><Button size='small' color={product.instock ? 'success' : 'error'} variant="contained">{product.instock ? "Yes" : "False"}</Button>  </TableCell>
                             {/* <TableCell>{product.retailer_id}</TableCell> */}
-                            <TableCell>
+                            {/* <TableCell>
                                 <a href={product.link} target="_blank" rel="noopener noreferrer">
                                     {product.link ? 'View' : 'N/A'}
                                 </a>
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell>
                                 <ButtonsContainer>
                                     <EditIcon

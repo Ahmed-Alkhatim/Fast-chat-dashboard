@@ -61,8 +61,8 @@ const AddProductForm = ({ onClose, handleOnSave }) => {
             noValidate
             autoComplete="off"
         >
-            <TextField name="name" onChange={handleChange} id="name" label="Arabic Name" variant="outlined" value={productData.name || ''} size="small" helperText={errors['name']} />
-            <TextField name="nameAr" onChange={handleChange} id="nameAr" label="English Name" variant="outlined" value={productData.nameAr || ''} size="small" helperText={errors['nameAr']} />
+            <TextField name="name" onChange={handleChange} id="name" label="English Name" variant="outlined" value={productData.name || ''} size="small" helperText={errors['name']} />
+            <TextField name="nameAr" onChange={handleChange} id="nameAr" label="Arabic Name" variant="outlined" value={productData.nameAr || ''} size="small" helperText={errors['nameAr']} />
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <InputLabel id="category">Category</InputLabel>
                 <Select
@@ -77,8 +77,9 @@ const AddProductForm = ({ onClose, handleOnSave }) => {
 
                 </Select>
             </FormControl>
-            <TextField name="description" helperText={errors['description']} onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={productData.description || ''} size="small" />
+            <TextField name="quantity" helperText={errors['quantity']} onChange={handleChange} id="outlined-basic" label="Quantity" variant="outlined" value={productData.quantity || ''} size="small" />
             <TextField name="price" helperText={errors['price']} onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={productData.price || ''} size="small" />
+            <TextField name="description" helperText={errors['description']} onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={productData.description || ''} size="small" />
             <TextField name="link" helperText={errors['link']} onChange={handleChange} id="outlined-basic" label="Link" variant="outlined" value={productData.link || ''} size="small" />
 
         </Box>

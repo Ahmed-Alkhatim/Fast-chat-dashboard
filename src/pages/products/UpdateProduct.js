@@ -1,5 +1,5 @@
 import Dialog from "src/components/Dialog";
-import { TextField, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { TextField, FormControl, InputLabel, MenuItem, Select, FormControlLabel, Switch } from "@mui/material";
 import Box from "@mui/material/Box";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
@@ -29,11 +29,14 @@ const UpdateCourseForm = ({ productData, onClose, handleOnSave }) => {
     const { errors, updateProduct } = useProductsContext()
     const [data, setCategoryData] = useState(productData);
     const [category, setCategory] = useState(productData.category._id);
+    const [instock, setInstock] = useState(productData.instock);
 
     useEffect(() => {
         handleOnSave(async () => {
             try {
-                await updateProduct({ ...data, category })
+                console.log(instock, "hahahahah");
+
+                await updateProduct({ ...data, category, instock })
                 toast.success('Product updated successfully');
                 onClose();
             } catch (error) {
@@ -41,7 +44,7 @@ const UpdateCourseForm = ({ productData, onClose, handleOnSave }) => {
 
             }
         });
-    }, [data, category]);
+    }, [data, category, instock]);
 
     const handleChange = (event) => {
         setCategoryData({ ...data, [event.target.name]: event.target.value });
@@ -56,8 +59,8 @@ const UpdateCourseForm = ({ productData, onClose, handleOnSave }) => {
             noValidate
             autoComplete="off"
         >
-            <TextField name="name" onChange={handleChange} id="name" label="Arabic Name" variant="outlined" value={data.name || ''} size="small" helperText={errors['name']} />
-            <TextField name="nameAr" onChange={handleChange} id="nameAr" label="English Name" variant="outlined" value={data.nameAr || ''} size="small" helperText={errors['nameAr']} />
+            <TextField name="name" onChange={handleChange} id="name" label="English Name" variant="outlined" value={data.name || ''} size="small" helperText={errors['name']} />
+            <TextField name="nameAr" onChange={handleChange} id="nameAr" label="Arabic Name" variant="outlined" value={data.nameAr || ''} size="small" helperText={errors['nameAr']} />
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <InputLabel id="category">Category</InputLabel>
                 <Select
@@ -72,6 +75,8 @@ const UpdateCourseForm = ({ productData, onClose, handleOnSave }) => {
 
                 </Select>
             </FormControl>
+            <FormControlLabel control={<Switch checked={instock} onChange={() => setInstock(!instock)} color='success' label="Instock?" />} />
+            <TextField name="quantity" helperText={errors['quantity']} onChange={handleChange} id="outlined-basic" label="Quantity" variant="outlined" value={data.quantity || ''} size="small" />
             <TextField name="description" helperText={errors['description']} onChange={handleChange} id="outlined-basic" label="Description" variant="outlined" value={data.description || ''} size="small" />
             <TextField name="price" helperText={errors['price']} onChange={handleChange} id="outlined-basic" label="Price" variant="outlined" value={data.price || ''} size="small" />
             <TextField name="link" helperText={errors['link']} onChange={handleChange} id="outlined-basic" label="Link" variant="outlined" value={data.link || ''} size="small" />
