@@ -21,7 +21,7 @@ export default function OrdersView() {
     const [messages, serMessages] = useState([])
     const { users, fetchUsers } = useUsersContext()
     const [deliveryUser, setDeliveryUser] = useState({})
-    // const socket = useSocket(localStorage.getItem('token'));
+    const socket = useSocket(localStorage.getItem('accessToken'));
     const addTwoHours = (dateString) => {
         const date = new Date(dateString);
         date.setHours(date.getHours() + 4);
@@ -29,33 +29,33 @@ export default function OrdersView() {
     };
 
     // useEffect(() => {
-    //     // if (socket) {
-    //     //     // socket.emit('getOrders');
-    //     //     // socket.emit('getMessages', { conversationId: "66e7900ae7096fdb8df2ba5f" })
-    //     //     // socket.emit('getOrders')
+    //     if (socket) {
+    //         // socket.emit('getOrders');
+    //         // socket.emit('getMessages', { conversationId: "66e7900ae7096fdb8df2ba5f" })
+    //         // socket.emit('getOrders')
 
-    //     //     // socket.on('orders', (data) => {
-    //     //     //     console.log("hahahahahahah", data);
+    //         // socket.on('orders', (data) => {
+    //         //     console.log("hahahahahahah", data);
 
-    //     //     //     setOrders(data.data);
-    //     //     // });
+    //         //     setOrders(data.data);
+    //         // });
 
-    //     //     // socket.on('messages', (data) => {
-    //     //     //     serMessages(data.messages);
-    //     //     //     console.log('Messages received', data.messages);
-    //     //     // });
+    //         // socket.on('messages', (data) => {
+    //         //     serMessages(data.messages);
+    //         //     console.log('Messages received', data.messages);
+    //         // });
 
-    //     //     // socket.on('conversations', (data) => {
-    //     //     //     serMessages(data.conversations);
-    //     //     //     console.log('conversations received', data.conversations);
-    //     //     // });
+    //         // socket.on('conversations', (data) => {
+    //         //     serMessages(data.conversations);
+    //         //     console.log('conversations received', data.conversations);
+    //         // });
 
-    //     //     return () => {
-    //     //         // socket.off('orders');
-    //     //         // socket.off('messages');
-    //     //         // socket.off('conversations');
-    //     //     };
-    //     // }
+    //         return () => {
+    //             // socket.off('orders');
+    //             // socket.off('messages');
+    //             // socket.off('conversations');
+    //         };
+    //     }
     // }, [socket]);
 
     useEffect(() => {
