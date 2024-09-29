@@ -18,12 +18,14 @@ const CategoryService = {
                     Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName),
                 },
             });
-            console.log("Fetched", response);
 
             if (response.status != 200) {
                 throw new Error('Failed to fetch categories');
             }
-            return await response.json();
+            const categories = await response.json()
+            console.log('categories', categories);
+
+            return categories;
         } catch (error) {
             console.error('Error fetching categories:', error);
             throw error;

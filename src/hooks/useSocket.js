@@ -9,7 +9,7 @@ const useSocket = (token) => {
     useEffect(() => {
         // if (token) {
         // https://api.fastchat24.com
-        const socketInstance = io('http://localhost:3001', {
+        const socketInstance = io('https:api.fastchat24.com', {
             auth: { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYxYjVjMDI3ZjIwOWIwMDc0M2UwNmQiLCJidXNpbmVzc1Bob25lTnVtYmVyIjoiMjQ5MTI0NDMzNDcwIiwicGhvbmVOdW1iZXIiOiIwMTE4NTE1MTY2IiwiaWF0IjoxNzI3MTIxMDQyfQ.oiARV3mj8eAv9ZjnRdEeSQrJQDBboPkAv8QEe72x3iI' }, // Pass token for authentication
         });
 
