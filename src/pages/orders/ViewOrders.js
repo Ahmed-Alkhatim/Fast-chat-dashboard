@@ -28,35 +28,18 @@ export default function OrdersView() {
         return date.toISOString(); // Convert back to a string in ISO format, or use other formats as needed
     };
 
-    // useEffect(() => {
-    //     if (socket) {
-    //         // socket.emit('getOrders');
-    //         // socket.emit('getMessages', { conversationId: "66e7900ae7096fdb8df2ba5f" })
-    //         // socket.emit('getOrders')
+    useEffect(() => {
+        if (socket) {
+            socket.on('new-order', (data) => {
+                console.log("hahahahahahah", data);
 
-    //         // socket.on('orders', (data) => {
-    //         //     console.log("hahahahahahah", data);
-
-    //         //     setOrders(data.data);
-    //         // });
-
-    //         // socket.on('messages', (data) => {
-    //         //     serMessages(data.messages);
-    //         //     console.log('Messages received', data.messages);
-    //         // });
-
-    //         // socket.on('conversations', (data) => {
-    //         //     serMessages(data.conversations);
-    //         //     console.log('conversations received', data.conversations);
-    //         // });
-
-    //         return () => {
-    //             // socket.off('orders');
-    //             // socket.off('messages');
-    //             // socket.off('conversations');
-    //         };
-    //     }
-    // }, [socket]);
+                setOrders([...orders, data.data]);
+            });
+            return () => {
+                socket.off('orders');
+            };
+        }
+    }, [socket]);
 
     useEffect(() => {
         (async function () {
@@ -133,7 +116,7 @@ export default function OrdersView() {
                             {/* <TableCell>{order.updatedAt}</TableCell> */}
                             <TableCell>Cash</TableCell>
                             <TableCell>{order.items.map((item, index) => <span key={index}>
-                                <div>{items[item.itemId]}</div>
+                                <div>{item.name}</div>
                             </span>)}</TableCell>
                             <TableCell>
                                 <ButtonsContainer>

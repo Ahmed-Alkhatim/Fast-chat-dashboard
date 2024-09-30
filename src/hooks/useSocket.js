@@ -2,15 +2,14 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import authConfig from 'src/configs/auth'
+import { apiURL } from 'src/services/config';
 
 const useSocket = (token) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        // if (token) {
-        // https://api.fastchat24.com
-        const socketInstance = io('https:api.fastchat24.com', {
-            auth: { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYxYjVjMDI3ZjIwOWIwMDc0M2UwNmQiLCJidXNpbmVzc1Bob25lTnVtYmVyIjoiMjQ5MTI0NDMzNDcwIiwicGhvbmVOdW1iZXIiOiIwMTE4NTE1MTY2IiwiaWF0IjoxNzI3MTIxMDQyfQ.oiARV3mj8eAv9ZjnRdEeSQrJQDBboPkAv8QEe72x3iI' }, // Pass token for authentication
+        const socketInstance = io(apiURL, {
+            auth: { token: window.localStorage.getItem(authConfig.storageTokenKeyName) }, // Pass token for authentication
         });
 
 
