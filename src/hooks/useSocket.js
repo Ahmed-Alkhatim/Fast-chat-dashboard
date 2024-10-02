@@ -16,7 +16,7 @@ const useSocket = (token) => {
         socketInstance.on('connect', () => {
             console.log('Connected to WebSocket server');
         });
-        socketInstance.emit('register', "0118515166")
+        socketInstance.emit('register', JSON.parse(localStorage.getItem('userData')).businessPhoneNumber)
 
         setSocket(socketInstance);
 

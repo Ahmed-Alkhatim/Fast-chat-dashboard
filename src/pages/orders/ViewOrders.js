@@ -34,12 +34,14 @@ export default function OrdersView() {
                 console.log("hahahahahahah", data);
 
                 setOrders([...orders, data.data]);
+                toast.success('A new Order has been created')
+
             });
             return () => {
-                socket.off('orders');
+                // socket.off('orders');
             };
         }
-    }, [socket]);
+    }, [socket, orders]);
 
     useEffect(() => {
         (async function () {
@@ -91,7 +93,7 @@ export default function OrdersView() {
                     <TableRow>
                         {/* <TableCell>Order Id</TableCell> */}
                         <TableCell>Customer</TableCell>
-                        <TableCell>Price</TableCell>
+                        {/* <TableCell>Price</TableCell> */}
                         <TableCell>Status</TableCell>
                         <TableCell>Created At</TableCell>
                         {/* <TableCell>Updated At</TableCell> */}
@@ -105,7 +107,7 @@ export default function OrdersView() {
                         <TableRow key={order._id}>
                             {/* <TableCell component="th" scope="row">{order.orderId}</TableCell> */}
                             <TableCell>{order.customerNumber}</TableCell>
-                            <TableCell>{getTotal(order.items)}</TableCell>
+                            {/* <TableCell>{getTotal(order.items)}</TableCell> */}
                             <TableCell><Button color={orderStatuses[Object.keys(orderStatuses)[order.status]]} variant="contained" size="small">{(Object.keys(orderStatuses)[order.status])}</Button></TableCell>
                             <TableCell>
                                 {order.updatedAt.split("T")[0]}
@@ -116,7 +118,7 @@ export default function OrdersView() {
                             {/* <TableCell>{order.updatedAt}</TableCell> */}
                             <TableCell>Cash</TableCell>
                             <TableCell>{order.items.map((item, index) => <span key={index}>
-                                <div>{item.name}</div>
+                                <div>{item.quantity + " " + item.name}</div>
                             </span>)}</TableCell>
                             <TableCell>
                                 <ButtonsContainer>
